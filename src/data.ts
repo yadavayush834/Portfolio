@@ -90,10 +90,34 @@ export const projects = [
     href: 'https://github.com/yadavayush834/game_ai',
   },
   {
-    name: 'CommitPulse',
-    type: 'Open Source / Creative Dev',
-    stack: 'Next.js, TypeScript, GraphQL',
-    href: 'https://github.com/yadavayush834/commitpulse',
+    name: 'Pay-per-PR',
+    type: 'Web3 / Open Source',
+    stack: 'Next.js, Solana, Anchor',
+    href: 'https://github.com/yadavayush834/pay-per-pr',
+  },
+  {
+    name: 'Quillvanta',
+    type: 'Local AI / RAG',
+    stack: 'Python, ChromaDB, Groq',
+    href: 'https://github.com/yadavayush834/quillvanta',
+  },
+  {
+    name: 'JJK Open',
+    type: 'Fan Experience / Generative AI',
+    stack: 'React, Vite, Google GenAI',
+    href: 'https://github.com/yadavayush834/jjk-open',
+  },
+  {
+    name: 'Daily Use Agent',
+    type: 'Local AI / Automation',
+    stack: 'Python, Ollama, Computer Vision',
+    href: 'https://github.com/yadavayush834/daily_use_agent',
+  },
+  {
+    name: 'Suraksha Cam',
+    type: 'Security / Monitoring',
+    stack: 'React, TypeScript, Recharts',
+    href: 'https://github.com/yadavayush834/suraksha-cam',
   },
 ]
 

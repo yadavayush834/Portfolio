@@ -7,7 +7,7 @@ import { featuredWork, gallery, journey, navItems, projects, skillGroups } from 
 
 gsap.registerPlugin(ScrollTrigger)
 
-const revealImages = ['/reveal/i1.png', '/reveal/i2.jpg', '/reveal/i3.jpg', '/reveal/i4.jpg', '/reveal/i5.jpg']
+const revealImages = ['/reveal/i5.jpg']
 
 function IntroReveal({ onComplete }: { onComplete: () => void }) {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -25,24 +25,24 @@ function IntroReveal({ onComplete }: { onComplete: () => void }) {
       gsap.set(images[0], { opacity: 1 })
       gsap.set('.loader-intro__progress', { scaleX: 0, transformOrigin: 'left' })
 
-      const timeline = gsap.timeline({ delay: .35, onComplete })
+      const timeline = gsap.timeline({ delay: .1, onComplete })
       timeline
-        .to('.loader-intro__progress', { scaleX: 1, duration: 5.15, ease: 'none' }, 0)
-        .to(wrapper, { width: () => window.innerWidth <= 700 ? '17vw' : 'clamp(145px, 13.5vw, 220px)', duration: .75, ease: 'power3.inOut' }, 0)
+        .to('.loader-intro__progress', { scaleX: 1, duration: 2.8, ease: 'none' }, 0)
+        .to(wrapper, { width: () => window.innerWidth <= 700 ? '17vw' : 'clamp(145px, 13.5vw, 220px)', duration: .42, ease: 'power3.inOut' }, 0)
 
       images.slice(1).forEach((image, index) => {
         const previous = images[index]
-        const position = 1.15 + index * .62
+        const position = .5 + index * .32
         timeline
-          .to(previous, { opacity: 0, scale: 1.18, duration: .15, ease: 'power2.in' }, position)
-          .to(image, { opacity: 1, scale: 1.08, duration: .21, ease: 'power2.out' }, position)
+          .to(previous, { opacity: 0, scale: 1.18, duration: .08, ease: 'power2.in' }, position)
+          .to(image, { opacity: 1, scale: 1.08, duration: .12, ease: 'power2.out' }, position)
       })
 
       timeline
-        .to('.loader-intro__text--left', { x: '-9vw', opacity: 0, duration: .7, ease: 'power3.in' }, 4)
-        .to('.loader-intro__text--right', { x: '9vw', opacity: 0, duration: .7, ease: 'power3.in' }, 4)
-        .to(wrapper, { scale: .88, opacity: 0, duration: .66, ease: 'power3.in' }, 4.06)
-        .to(root, { clipPath: 'inset(0 0 100% 0)', duration: 1, ease: 'power4.inOut' }, 4.45)
+        .to('.loader-intro__text--left', { x: '-9vw', opacity: 0, duration: .38, ease: 'power3.in' }, 1.85)
+        .to('.loader-intro__text--right', { x: '9vw', opacity: 0, duration: .38, ease: 'power3.in' }, 1.85)
+        .to(wrapper, { scale: .88, opacity: 0, duration: .36, ease: 'power3.in' }, 1.89)
+        .to(root, { clipPath: 'inset(0 0 100% 0)', duration: .65, ease: 'power4.inOut' }, 2.15)
     }, root)
 
     return () => context.revert()
@@ -136,52 +136,9 @@ function Header({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (va
   )
 }
 
-function SideIndex() {
-  const [active, setActive] = useState('about')
-  const [visible, setVisible] = useState(true)
-
-  useEffect(() => {
-    const observers = navItems.map((item) => {
-      const element = document.querySelector(item.href)
-      if (!element) return null
-      const observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) setActive(item.href.slice(1))
-      }, { rootMargin: '-40% 0px -50% 0px' })
-      observer.observe(element)
-      return observer
-    })
-    return () => observers.forEach((observer) => observer?.disconnect())
-  }, [])
-
-  useEffect(() => {
-    const updateVisibility = () => setVisible(window.scrollY < window.innerHeight * 0.68)
-    updateVisibility()
-    window.addEventListener('scroll', updateVisibility, { passive: true })
-    window.addEventListener('resize', updateVisibility)
-    return () => {
-      window.removeEventListener('scroll', updateVisibility)
-      window.removeEventListener('resize', updateVisibility)
-    }
-  }, [])
-
-  return (
-    <nav className={`side-index ${visible ? 'is-visible' : ''}`} aria-label="Section index" aria-hidden={!visible}>
-      {navItems.map((item) => (
-        <a key={item.href} className={active === item.href.slice(1) ? 'is-active' : ''} href={item.href}>
-          <span>{item.number}</span>{item.label}
-        </a>
-      ))}
-    </nav>
-  )
-}
-
 function Hero() {
   return (
     <section className="hero" id="top">
-      <div className="hero__ticker" aria-hidden="true">
-        <span>2026</span><span>AYUSH — YADAV</span><span>＋</span><span>BUILD / LEARN / SHIP</span><span>PORTFOLIO</span><span>＋</span>
-      </div>
-      <div className="hero__location mono"><span>28.6139° N — 77.2090° E</span> DELHI, INDIA</div>
       <div className="hero__copy">
         <div className="hero__eyebrow mono">SCALABLE APPLICATIONS / APPLIED INTELLIGENCE</div>
         <h1>
@@ -196,7 +153,6 @@ function Hero() {
         <div className="hero__flower-note mono">SYSTEMS IN MOTION<br />BUILT WITH INTENT</div>
       </div>
       <a className="hero__scroll mono" href="#about"><span>SCROLL DOWN</span><ArrowDown size={16} /></a>
-      <div className="hero__edition mono">AYUSH YADAV / VOL. 01<br />DELHI — 2026</div>
     </section>
   )
 }
@@ -214,7 +170,7 @@ function SectionTitle({ number, children, light = false }: { number: string; chi
 function About() {
   return (
     <section className="about paper-section" id="about">
-      <div className="marquee" aria-hidden="true"><div>ABOUT ME — ABOUT ME — ABOUT ME — ABOUT ME —&nbsp;</div></div>
+      <div className="marquee"><div>ABOUT ME</div></div>
       <div className="content-grid about__content">
         <div className="about__label mono">PROFILE://</div>
         <div className="about__statement reveal-copy">
@@ -474,7 +430,6 @@ function App() {
     <>
       {loading && <IntroReveal onComplete={() => setLoading(false)} />}
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <SideIndex />
       <main>
         <Hero />
         <About />
